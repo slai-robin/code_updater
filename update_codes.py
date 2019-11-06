@@ -5,9 +5,13 @@ import sys
 if not os.path.exists('output'):
     os.makedirs('output')
 
-old_official = sys.argv[1]
-new_official = sys.argv[2]
-old_robin = sys.argv[3]
+# old_official = sys.argv[1]
+# new_official = sys.argv[2]
+# old_robin = sys.argv[3]
+
+old_official = 'old_official.csv'
+new_official = 'new_official.csv'
+old_robin = 'robin_descriptor.csv'
 
 official_clinician_descriptor = 'ClinicianDescriptor.csv'
 robin_clinician_descriptor = 'RobinClinicianDescriptor.csv'
