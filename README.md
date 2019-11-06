@@ -17,16 +17,16 @@ Gather the following files in `.csv` format and place them all in the `code_upda
 - Official Clinician Descriptors (named ClinicianDesciptor.csv)
 - Robin Clinician Descriptors (named RobinClinicianDescriptor.csv)
 
-Make sure your directory structure is as follows:
+Please make sure your directory structure is as follows. Filenames must match exactly.
 
-	├── update_codes.py 				# Script 
-	├── old_official.csv  				# Old Official Codes. Schema: Code, Descriptor
-	├── new_official.csv          		# New Official Codes. Schema: Code, Descriptor
-	├── robin_descriptor.csv           	# Robin Codes. Schema: Code, Descriptor
-	├── ClinicianDesciptor.csv 		`	# Official Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Clinician Descriptor
-	├── RobinClinicianDescriptor.csv    # Robin Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed
-	├── txt2csv.py 						# For converting .txt to .csv.               
-	└── README.md 						# You are here
+	├── update_codes.py 				[Script]
+	├── old_official.csv 				[Old Official Codes. Schema: Code, Descriptor]
+	├── new_official.csv 				[New Official Codes. Schema: Code, Descriptor]
+	├── robin_descriptor.csv 			[Robin Codes. Schema: Code, Descriptor]
+	├── ClinicianDesciptor.csv 			[Official Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Clinician Descriptor]
+	├── RobinClinicianDescriptor.csv 	[Robin Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed]
+	├── txt2csv.py 						[For converting .txt to .csv]              
+	└── README.md 						[You are here]
 
 Copy and paste the following in the terminal to run the example: 
 
