@@ -36,7 +36,7 @@ hcpcs = 'HCPCS '
 icd10 = 'ICD10 '
 
 while not code_type_confirmed:
-	proceed = raw_input('What type of code are you updating? \
+	proceed = raw_input('\nWhat type of code are you updating?\n \
 							\n[a] CPT \
 							\n[b] HCPCS \
 							\n[c] ICD10 \
@@ -53,9 +53,6 @@ while not code_type_confirmed:
 		code_type_confirmed = True
 	else:
 		continue
-
-
-
 
 
 old_off_code = code_type + 'Code'
@@ -95,6 +92,7 @@ while not labels_confirmed:
 
 current_date = raw_input('\n[!] In what quarter will these codes become active? (ex. Q1 2020) Answer: ')
 
+print "\n\nCalculating . . ."
 
 ################ GENERATE DICTIONARIES #######################
 
@@ -295,6 +293,20 @@ with open('output/codes_deleted.csv', 'w') as csvfile:
 			'Deleted Descriptor': deleted_dict[key]
 			})
 
+with open('output/codes_deleted_in_context.csv', 'w') as csvfile:
+	fieldnames = ['Code', 'Descriptor', "Deleted?"]
+	writer = csv.DictWriter(csvfile, fieldnames)
+	writer.writeheader()
+	for key in sorted(old_codes_dict.keys()):
+		was_deleted = ''
+		if key in deleted_dict.keys():
+			was_deleted = 'DELETED'
+		writer.writerow({
+			'Code': key, 
+			'Descriptor': old_codes_dict[key],
+			'Deleted?': was_deleted
+			})
+
 
 with open('output/new_internal_table.csv', 'w') as csvfile:
 	fieldnames = ['Concept Id', 'CPT Code', 'Clinician Descriptor Id', 'Robin Descriptor', 'Category', 'Date Added', 'Date Changed', 'Status'] 
@@ -316,9 +328,9 @@ with open('output/new_internal_table.csv', 'w') as csvfile:
 
 ################ TERMINAL OUTPUT #######################
 
-print "========================================="
+print "\n==============================="
 print "Number of codes added: ", len(new.keys())
 print "Number of codes changed: ", len(changed.keys())
 print "Number of codes deleted: ", len(deleted_dict.keys()) 
-print "========================================="
+print "===============================\n"
 

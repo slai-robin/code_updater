@@ -26,7 +26,7 @@ Make sure your directory structure is as follows:
 	├── Robin Codes           				# Schema: Code, Descriptor
 	├── Official Clinician Descriptors 		# Schema: Concept Id, CPT, Clinician Descriptor Id, Clinician Descriptor
 	├── Robin Clinician Descriptors    		# Schema: Concept Id, CPT Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed
-	├── txt2csv.py 					# Script              
+	├── txt2csv.py 							# Script              
 	└── README.md 							# You are here
 
 Copy and paste the following in the terminal to run the example: 
