@@ -26,7 +26,7 @@ Make sure your directory structure is as follows:
 	├── Robin Codes           				# Schema: Code, Descriptor
 	├── Official Clinician Descriptors 		# Schema: Concept Id, CPT, Clinician Descriptor Id, Clinician Descriptor
 	├── Robin Clinician Descriptors    		# Schema: Concept Id, CPT Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed
-	├── txt2csv.py 							# Script              
+	├── txt2csv.py 							# For converting .txt to .csv.               
 	└── README.md 							# You are here
 
 Copy and paste the following in the terminal to run the example: 
@@ -39,7 +39,7 @@ Format of command:
 
 ### User-Specified Inputs
 
-To make this script robust to different types of codes, this script require the user to confirm the type of codes being update, the labels of the columns of the input files, and the current quarter. 
+To make this script robust to different types of codes, this script requires the user to confirm the type of codes being updated, the labels of the columns of the input files, and the current quarter. 
 
 Exit the script at any time by hitting Ctrl + C.
 
@@ -48,5 +48,6 @@ Exit the script at any time by hitting Ctrl + C.
 	codes_added.csv 						# Schema: Concept Id, New Code, Clinician Descriptor Id, Clinician Descriptor, New Descriptor
 	codes_changed.csv 						# Schema: Code, New Official Descriptor, Old Official Descriptor, Old Robin Descriptor
 	codes_deleted.csv 						# Schema: Deleted Code, Deleted Descriptor
+	codes_deleted_in_context.csv 			# Schema: Code, Descriptor, Deleted? (lists all old codes and indicates which ones have been deleted)
 	new_internal_table.csv 					# Schema: Concept Id, CPT Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed, Status
 	

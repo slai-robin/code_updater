@@ -20,7 +20,6 @@ new_internal_table = {}
 clinician_descriptor_dict = {}
 robin_clinician_descriptor_dict = {}
 
-
 new = {}
 changed = {}
 unchanged = {}
@@ -174,7 +173,6 @@ for key in new.keys():
 	}
 
 for key in changed.keys():
-	# default
 	concept_id = ''
 	CPT_code = key
 	clinician_descriptor_id =  ''
@@ -204,7 +202,6 @@ for key in changed.keys():
 		}
 
 for key in unchanged.keys():
-	# default
 	concept_id = ''
 	CPT_code = key
 	clinician_descriptor_id =  ''
