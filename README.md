@@ -4,6 +4,7 @@ A script that aids in updating Robin Descriptors when official CPT, ICD10, and H
 
 ## Usage
 
+Clone this repository by 
 
 Open the Terminal (Launchpad > Search "Terminal"). By default, you'll start in your home directory, called `~`.
 
@@ -24,8 +25,8 @@ Make sure your directory structure is as follows:
 	├── Old Official Codes  				# Schema: Code, Descriptor
 	├── New Official Codes           		# Schema: Code, Descriptor
 	├── Robin Codes           				# Schema: Code, Descriptor
-	├── Official Clinician Descriptors 		# Schema: Concept Id, CPT, Clinician Descriptor Id, Clinician Descriptor
-	├── Robin Clinician Descriptors    		# Schema: Concept Id, CPT Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed
+	├── Official Clinician Descriptors 		# Schema: Concept Id, Code, Clinician Descriptor Id, Clinician Descriptor
+	├── Robin Clinician Descriptors    		# Schema: Concept Id, Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed
 	├── txt2csv.py 							# For converting .txt to .csv.               
 	└── README.md 							# You are here
 
@@ -49,5 +50,5 @@ Exit the script at any time by hitting Ctrl + C.
 	codes_changed.csv 						# Schema: Code, New Official Descriptor, Old Official Descriptor, Old Robin Descriptor
 	codes_deleted.csv 						# Schema: Deleted Code, Deleted Descriptor
 	codes_deleted_in_context.csv 			# Schema: Code, Descriptor, Deleted? (lists all old codes and indicates which ones have been deleted)
-	new_internal_table.csv 					# Schema: Concept Id, CPT Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed, Status
+	new_internal_table.csv 					# Schema: Concept Id, Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed, Status
 	

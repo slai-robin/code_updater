@@ -91,7 +91,7 @@ while not labels_confirmed:
 
 current_date = raw_input('\n[!] In what quarter will these codes become active? (ex. Q1 2020) Answer: ')
 
-print "\n\nCalculating . . ."
+print "\nCalculating . . ."
 
 ################ GENERATE DICTIONARIES #######################
 
@@ -117,7 +117,7 @@ with open(old_robin) as csvfile:
 with open(official_clinician_descriptor) as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
- 		clinician_descriptor_dict[str(row['CPT Code'])] = {
+ 		clinician_descriptor_dict[str(row[code_type + 'Code'])] = {
  			'Concept Id': row['Concept Id'],
  			'Clinician Descriptor Id': row['Clinician Descriptor Id'],
  			'Clinician Descriptor': row['Clinician Descriptor']
@@ -126,7 +126,7 @@ with open(official_clinician_descriptor) as csvfile:
 with open(robin_clinician_descriptor) as csvfile: 
     reader = csv.DictReader(csvfile)
     for row in reader:
- 		robin_clinician_descriptor_dict[str(row['CPT Code'])] = {
+ 		robin_clinician_descriptor_dict[str(row[code_type + 'Code'])] = {
  			'Concept Id': str(row['Concept Id']),
  			'Clinician Descriptor Id': str(row['Clinician Descriptor Id']),
  			'Robin Descriptor': row['Robin Descriptor'],
@@ -152,7 +152,7 @@ for key in new_codes_dict.keys():
 ################ BUILD NEW INTERNAL TABLE #######################
 
 for key in new.keys():
-	CPT_code = key
+	code = key
 	concept_id = ''
 	clinician_descriptor_id = ''
 
@@ -163,7 +163,7 @@ for key in new.keys():
 
 	new_internal_table[key] =  {
 		'Concept Id':concept_id, 
-		'CPT Code':CPT_code, 
+		code_type + 'Code': code, 
 		'Clinician Descriptor Id':clinician_descriptor_id, 
 		'Robin Descriptor': '', 
 		'Category': '', 
@@ -174,7 +174,7 @@ for key in new.keys():
 
 for key in changed.keys():
 	concept_id = ''
-	CPT_code = key
+	code = key
 	clinician_descriptor_id =  ''
 	robin_descriptor = ''
 	category = ''
@@ -192,7 +192,7 @@ for key in changed.keys():
 
 	new_internal_table[key] =  {
 		'Concept Id':concept_id, 
-		'CPT Code':CPT_code, 
+		code_type + 'Code': code, 
 		'Clinician Descriptor Id':clinician_descriptor_id, 
 		'Robin Descriptor': robin_descriptor, 
 		'Category': category, 
@@ -203,7 +203,7 @@ for key in changed.keys():
 
 for key in unchanged.keys():
 	concept_id = ''
-	CPT_code = key
+	code = key
 	clinician_descriptor_id =  ''
 	robin_descriptor = ''
 	category = ''
@@ -221,7 +221,7 @@ for key in unchanged.keys():
 
 	new_internal_table[key] =  {
 		'Concept Id':concept_id, 
-		'CPT Code':CPT_code, 
+		code_type + 'Code':code, 
 		'Clinician Descriptor Id':clinician_descriptor_id, 
 		'Robin Descriptor': robin_descriptor, 
 		'Category': category, 
@@ -306,7 +306,7 @@ with open('output/codes_deleted_in_context.csv', 'w') as csvfile:
 
 
 with open('output/new_internal_table.csv', 'w') as csvfile:
-	fieldnames = ['Concept Id', 'CPT Code', 'Clinician Descriptor Id', 'Robin Descriptor', 'Category', 'Date Added', 'Date Changed', 'Status'] 
+	fieldnames = ['Concept Id', code_type + 'Code', 'Clinician Descriptor Id', 'Robin Descriptor', 'Category', 'Date Added', 'Date Changed', 'Status'] 
 	writer = csv.DictWriter(csvfile, fieldnames)
 	writer.writeheader()
 
@@ -314,7 +314,7 @@ with open('output/new_internal_table.csv', 'w') as csvfile:
 		code = new_internal_table[key]
 		writer.writerow({ 
 			'Concept Id': code['Concept Id'], 
-			'CPT Code': key, 
+			code_type + 'Code': key, 
 			'Clinician Descriptor Id': code['Clinician Descriptor Id'], 
 			'Robin Descriptor':code['Robin Descriptor'], 
 			'Category':code['Category'], 
