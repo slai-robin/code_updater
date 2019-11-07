@@ -9,12 +9,12 @@ if not os.path.exists('output'):
 # new_official = sys.argv[2]
 # old_robin = sys.argv[3]
 
-old_official = 'old_official.csv'
-new_official = 'new_official.csv'
-old_robin = 'robin_descriptor.csv'
+old_official = '/old_official.csv'
+new_official = '/new_official.csv'
+old_robin = '/robin_descriptor.csv'
 
-official_clinician_descriptor = 'ClinicianDescriptor.csv'
-robin_clinician_descriptor = 'RobinClinicianDescriptor.csv'
+official_clinician_descriptor = '/ClinicianDescriptor.csv'
+robin_clinician_descriptor = '/RobinClinicianDescriptor.csv'
 
 old_codes_dict = {}
 new_codes_dict = {}
@@ -39,11 +39,11 @@ hcpcs = 'HCPCS '
 icd10 = 'ICD10 '
 
 while not code_type_confirmed:
-	proceed = raw_input('\nWhat type of code are you updating?\n \
+	proceed = raw_input('\n[!] What type of code are you updating?\n \
 							\n[a] CPT \
 							\n[b] HCPCS \
 							\n[c] ICD10 \
-							\nAnswer: '
+							\n\nAnswer: '
 							)
 	if proceed == 'a':
 		code_type = cpt
@@ -57,6 +57,13 @@ while not code_type_confirmed:
 	else:
 		continue
 
+folder_name_confirmed = False
+folder_name = ''
+while not folder_name_confirmed:
+	folder_name = raw_input('\n[!] What is the input folder called?\n\nAnswer: ')
+	if folder_name:
+		folder_name_confirmed = True
+		break
 
 old_off_code = code_type + 'Code'
 old_off_desc = code_type + 'Description'
@@ -64,8 +71,6 @@ new_off_code = code_type + 'Code'
 new_off_desc = code_type + 'Description'
 robin_code = code_type + 'Code'
 robin_desc = 'Robin Descriptor'
-
-print '\n=============='
 
 labels_confirmed = False
 
@@ -77,7 +82,7 @@ while not labels_confirmed:
 					'New Official Descriptor: ' + new_off_desc + '\n' + 
 					'Old Robin Codes: ' + robin_code + '\n' + 
 					'Old Robin Descriptor: ' + robin_desc + '\n' + 
-					'\n[yes/no] ')
+					'\nAnswer [yes/no]: ')
 	if proceed == 'yes':
 		labels_confirmed = True
 		break
@@ -91,26 +96,24 @@ while not labels_confirmed:
 	robin_code = raw_input('Provide the label for Robin codes: ')
 	robin_desc = raw_input('Provide the label for Robin descriptors: ')
 
-	print '\n=============='
-
-current_date = raw_input('\n[!] In what quarter will these codes become active? (ex. Q1 2020) Answer: ')
+current_date = raw_input('\n[!] In what quarter will these codes become active? (ex. Q1 2020) \n\nAnswer: ')
 
 print "\nCalculating . . ."
 
 ################ GENERATE DICTIONARIES #######################
 
-with open(old_official) as csvfile:
+with open(folder_name + old_official) as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
      	old_codes_dict[str(row[old_off_code])] = row[old_off_desc]
      	deleted_dict[str(row[old_off_code])] = row[old_off_desc]
 
-with open(new_official) as csvfile:
+with open(folder_name + new_official) as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
      	new_codes_dict[str(row[new_off_code])] = row[new_off_desc]
 
-with open(old_robin) as csvfile:
+with open(folder_name + old_robin) as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
     	if row[robin_code] in old_robin_dict.keys():
@@ -118,7 +121,7 @@ with open(old_robin) as csvfile:
      	else: 
      		old_robin_dict[str(row[robin_code])] = [row[robin_desc]]
 
-with open(official_clinician_descriptor) as csvfile:
+with open(folder_name + official_clinician_descriptor) as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
  		clinician_descriptor_dict[str(row[code_type + 'Code'])] = {
@@ -127,7 +130,7 @@ with open(official_clinician_descriptor) as csvfile:
  			'Clinician Descriptor': row['Clinician Descriptor']
  		}   
 
-with open(robin_clinician_descriptor) as csvfile: 
+with open(folder_name + robin_clinician_descriptor) as csvfile: 
     reader = csv.DictReader(csvfile)
     for row in reader:
  		robin_clinician_descriptor_dict[str(row[code_type + 'Code'])] = {
@@ -151,7 +154,6 @@ for key in new_codes_dict.keys():
 		else:
 			unchanged[key] = new_codes_dict[key]
 			deleted_dict.pop(key)
-			#add to new internal
 
 ################ BUILD NEW INTERNAL TABLE #######################
 
@@ -169,7 +171,7 @@ for key in new.keys():
 		'Concept Id':concept_id, 
 		code_type + 'Code': code, 
 		'Clinician Descriptor Id':clinician_descriptor_id, 
-		'Robin Descriptor': '', 
+		'Robin Descriptor': '', #add clinician descriptor here
 		'Category': '', 
 		'Date Added': current_date, 
 		'Date Changed': '',
@@ -223,6 +225,8 @@ for key in unchanged.keys():
 		date_added = clinician_info['Date Added']
 		date_changed = clinician_info['Date Changed']
 
+
+
 	new_internal_table[key] =  {
 		'Concept Id':concept_id, 
 		code_type + 'Code':code, 
@@ -235,8 +239,8 @@ for key in unchanged.keys():
 		}
 
 ################ CREATE OUTPUT FILES #######################
-
-with open('output/codes_added.csv', 'w') as csvfile:
+code_type = code_type[:-1]
+with open('output/'+code_type+'_codes_added.csv', 'w') as csvfile:
 	fieldnames = ['Concept Id', 'New Code', 'Clinician Descriptor Id', 'Clinician Descriptor', 'New Descriptor']
 	writer = csv.DictWriter(csvfile, fieldnames)
 	writer.writeheader()
@@ -260,7 +264,7 @@ with open('output/codes_added.csv', 'w') as csvfile:
 				})
 
 
-with open('output/codes_changed.csv', 'w') as csvfile:
+with open('output/'+code_type+'_codes_changed.csv', 'w') as csvfile:
 	fieldnames = ['Code', 'New Official Descriptor', 'Old Official Descriptor', 'Old Robin Descriptor']
 	writer = csv.DictWriter(csvfile, fieldnames)
 	writer.writeheader()
@@ -284,7 +288,7 @@ with open('output/codes_changed.csv', 'w') as csvfile:
 				'Old Robin Descriptor': old_robin_descriptor
 				})
 
-with open('output/codes_deleted.csv', 'w') as csvfile:
+with open('output/'+code_type+'_codes_deleted.csv', 'w') as csvfile:
 	fieldnames = ['Deleted Code', 'Deleted Descriptor']
 	writer = csv.DictWriter(csvfile, fieldnames)
 	writer.writeheader()
@@ -294,7 +298,7 @@ with open('output/codes_deleted.csv', 'w') as csvfile:
 			'Deleted Descriptor': deleted_dict[key]
 			})
 
-with open('output/codes_deleted_in_context.csv', 'w') as csvfile:
+with open('output/'+code_type+'_codes_deleted_in_context.csv', 'w') as csvfile:
 	fieldnames = ['Code', 'Descriptor', "Deleted?"]
 	writer = csv.DictWriter(csvfile, fieldnames)
 	writer.writeheader()
@@ -309,11 +313,11 @@ with open('output/codes_deleted_in_context.csv', 'w') as csvfile:
 			})
 
 
-with open('output/new_internal_table.csv', 'w') as csvfile:
+with open('output/'+code_type+'_new_internal_table.csv', 'w') as csvfile:
 	fieldnames = ['Concept Id', code_type + 'Code', 'Clinician Descriptor Id', 'Robin Descriptor', 'Category', 'Date Added', 'Date Changed', 'Status'] 
 	writer = csv.DictWriter(csvfile, fieldnames)
 	writer.writeheader()
-
+# make sure you get all the rows in robin descriptor
 	for key in sorted(new_internal_table.keys()):
 		code = new_internal_table[key]
 		writer.writerow({ 

@@ -10,7 +10,7 @@ Using the command `cd` (change directory), navigate to the folder where the scri
 
 	example: cd ~/Desktop/code_updater
 
-Gather the following files in `.csv` format and place them all in the `code_updater` folder: 
+Gather the following files in `.csv` format and place them all in a folder named 'input' in the `code_updater` folder. Remove or rename any existing output folders. 
 - 'Old' Official Codes and Descriptors
 - New Official Codes and Descriptors
 - 'Old' Robin Codes and Robin Descriptors
@@ -19,14 +19,15 @@ Gather the following files in `.csv` format and place them all in the `code_upda
 
 Please make sure your directory structure is as follows. Filenames must match exactly.
 
-	├── update_codes.py 				[Script]
-	├── old_official.csv 				[Old Official Codes. Schema: Code, Descriptor]
-	├── new_official.csv 				[New Official Codes. Schema: Code, Descriptor]
-	├── robin_descriptor.csv 			[Robin Codes. Schema: Code, Descriptor]
-	├── ClinicianDesciptor.csv 			[Official Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Clinician Descriptor]
-	├── RobinClinicianDescriptor.csv 	[Robin Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed]
-	├── txt2csv.py 						[For converting .txt to .csv]              
-	└── README.md 						[You are here]
+	├── update_codes.py 					[Script]
+	├── input 								[Folder]
+	│	├── old_official.csv 				[Old Official Codes. Schema: Code, Descriptor]
+	│	├── new_official.csv 				[New Official Codes. Schema: Code, Descriptor]
+	│	├── robin_descriptor.csv 			[Robin Codes. Schema: Code, Descriptor]
+	│	├── ClinicianDesciptor.csv 			[Official Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Clinician Descriptor]
+	│	└── RobinClinicianDescriptor.csv 	[Robin Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed]
+	├── txt2csv.py 							[For converting .txt to .csv]              
+	└── README.md 							[You are here]
 
 Copy and paste the following in the terminal to run the example: 
 
