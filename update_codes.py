@@ -5,10 +5,6 @@ import sys
 if not os.path.exists('output'):
     os.makedirs('output')
 
-# old_official = sys.argv[1]
-# new_official = sys.argv[2]
-# old_robin = sys.argv[3]
-
 old_official = '/old_official.csv'
 new_official = '/new_official.csv'
 old_robin = '/robin_descriptor.csv'
@@ -239,6 +235,7 @@ for key in unchanged.keys():
 		}
 
 ################ CREATE OUTPUT FILES #######################
+
 code_type = code_type[:-1]
 with open('output/'+code_type+'_codes_added.csv', 'w') as csvfile:
 	fieldnames = ['Concept Id', 'New Code', 'Clinician Descriptor Id', 'Clinician Descriptor', 'New Descriptor']
@@ -317,7 +314,6 @@ with open('output/'+code_type+'_new_internal_table.csv', 'w') as csvfile:
 	fieldnames = ['Concept Id', code_type + 'Code', 'Clinician Descriptor Id', 'Robin Descriptor', 'Category', 'Date Added', 'Date Changed', 'Status'] 
 	writer = csv.DictWriter(csvfile, fieldnames)
 	writer.writeheader()
-# make sure you get all the rows in robin descriptor
 	for key in sorted(new_internal_table.keys()):
 		code = new_internal_table[key] 
 		if key in old_robin_dict.keys():
@@ -332,9 +328,7 @@ with open('output/'+code_type+'_new_internal_table.csv', 'w') as csvfile:
 				'Date Changed': code['Date Changed'],
 				'Status': code['Status']
 				})
-				# write a row for every robin descriptor
 		else:
-			# just write a row
 			writer.writerow({ 
 				'Concept Id': code['Concept Id'], 
 				code_type + 'Code': key, 
