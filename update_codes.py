@@ -319,17 +319,32 @@ with open('output/'+code_type+'_new_internal_table.csv', 'w') as csvfile:
 	writer.writeheader()
 # make sure you get all the rows in robin descriptor
 	for key in sorted(new_internal_table.keys()):
-		code = new_internal_table[key]
-		writer.writerow({ 
-			'Concept Id': code['Concept Id'], 
-			code_type + 'Code': key, 
-			'Clinician Descriptor Id': code['Clinician Descriptor Id'], 
-			'Robin Descriptor':code['Robin Descriptor'], 
-			'Category':code['Category'], 
-			'Date Added': code['Date Added'], 
-			'Date Changed': code['Date Changed'],
-			'Status': code['Status']
-			})
+		code = new_internal_table[key] 
+		if key in old_robin_dict.keys():
+			for descriptor in old_robin_dict[key]:
+				writer.writerow({ 
+				'Concept Id': code['Concept Id'], 
+				code_type + 'Code': key, 
+				'Clinician Descriptor Id': code['Clinician Descriptor Id'], 
+				'Robin Descriptor': descriptor, 
+				'Category':code['Category'], 
+				'Date Added': code['Date Added'], 
+				'Date Changed': code['Date Changed'],
+				'Status': code['Status']
+				})
+				# write a row for every robin descriptor
+		else:
+			# just write a row
+			writer.writerow({ 
+				'Concept Id': code['Concept Id'], 
+				code_type + 'Code': key, 
+				'Clinician Descriptor Id': code['Clinician Descriptor Id'], 
+				'Robin Descriptor':code['Robin Descriptor'], 
+				'Category':code['Category'], 
+				'Date Added': code['Date Added'], 
+				'Date Changed': code['Date Changed'],
+				'Status': code['Status']
+				})
 
 ################ TERMINAL OUTPUT #######################
 

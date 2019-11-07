@@ -25,16 +25,14 @@ Please make sure your directory structure is as follows. Filenames must match ex
 	│	├── new_official.csv 				[New Official Codes. Schema: Code, Descriptor]
 	│	├── robin_descriptor.csv 			[Robin Codes. Schema: Code, Descriptor]
 	│	├── ClinicianDesciptor.csv 			[Official Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Clinician Descriptor]
-	│	└── RobinClinicianDescriptor.csv 	[Robin Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed]
-	├── txt2csv.py 							[For converting .txt to .csv]              
+	│	└── RobinClinicianDescriptor.csv 	[Robin Clinician Descriptors. Schema: Concept Id, Code, Clinician Descriptor Id, Robin Descriptor, Category, Date Added, Date Changed]            
 	└── README.md 							[You are here]
 
 Copy and paste the following in the terminal to run the example: 
 
 	python update_codes.py 
 
-
-Exit the script at any time by hitting Ctrl + C.
+Exit the script at any time by hitting Ctrl+C.
 
 ### User-Specified Inputs
 
@@ -43,6 +41,8 @@ To make this script robust to different types of codes, this script prompts the 
 The script does not prompt the user for the Clinician Descriptor labels -- we assume that these will stay the same. 
 
 ### Outputs
+
+Outputs will go to a folder called `output`. The code type (HCPCS, CPT, ICD10) will be appended to the beginning of each output file.
 
 	codes_added.csv 						# Schema: Concept Id, New Code, Clinician Descriptor Id, Clinician Descriptor, New Descriptor
 	codes_changed.csv 						# Schema: Code, New Official Descriptor, Old Official Descriptor, Old Robin Descriptor
