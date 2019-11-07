@@ -162,17 +162,29 @@ for key in new.keys():
 		clinician_info = clinician_descriptor_dict[key] #OFFICIAL TABLE
 		concept_id = clinician_info['Concept Id']
 		clinician_descriptor_id =  clinician_info['Clinician Descriptor Id']
+		clinician_descriptor = clinician_info['Clinician Descriptor']
 
-	new_internal_table[key] =  {
-		'Concept Id':concept_id, 
-		code_type + 'Code': code, 
-		'Clinician Descriptor Id':clinician_descriptor_id, 
-		'Robin Descriptor': '', #add clinician descriptor here
-		'Category': '', 
-		'Date Added': current_date, 
-		'Date Changed': '',
-		'Status': 'New'
-	}
+		new_internal_table[key] =  {
+			'Concept Id':concept_id, 
+			code_type + 'Code': code, 
+			'Clinician Descriptor Id':clinician_descriptor_id, 
+			'Robin Descriptor': clinician_descriptor,
+			'Category': '', 
+			'Date Added': current_date, 
+			'Date Changed': '',
+			'Status': 'New'
+		}
+	else:
+		new_internal_table[key] =  {
+			'Concept Id':concept_id, 
+			code_type + 'Code': code, 
+			'Clinician Descriptor Id':clinician_descriptor_id, 
+			'Robin Descriptor': '', #add clinician descriptor here
+			'Category': '', 
+			'Date Added': current_date, 
+			'Date Changed': '',
+			'Status': 'New'
+		}
 
 for key in changed.keys():
 	concept_id = ''
